@@ -8,7 +8,8 @@ import {
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
-  catch(exception: unknown, host: ArgumentsHost) {
+  catch(exception: any, host: ArgumentsHost) {
+    console.log('exception :', exception);
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
@@ -18,7 +19,9 @@ export class AllExceptionsFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
     const error =
-      exception instanceof HttpException ? exception.message : exception;
+      exception instanceof HttpException
+        ? exception.message
+        : exception?.message || { ...exception };
 
     response.status(status).json({
       statusCode: status,
