@@ -1,9 +1,12 @@
-import { z } from 'zod';
+import { ApiProperty } from '@nestjs/swagger';
 
-export const loginRequestDto = z
-  .object({
-    s: z.string(),
-  })
-  .required();
+export class LoginDTO {
+  @ApiProperty()
+  name: string;
 
-export type LoginDto = z.infer<typeof loginRequestDto>;
+  @ApiProperty()
+  age: number;
+
+  @ApiProperty()
+  breed: string;
+}

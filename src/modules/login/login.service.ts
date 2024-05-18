@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { LoginDto } from './login.dto';
+import { LoginDTO } from './login.dto';
 
 @Injectable()
 export class LoginService {
-  getTest(s: LoginDto) {
+  getTest(s: LoginDTO) {
     return s + 'hihihiihihih';
   }
 }
