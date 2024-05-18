@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
       IgnoreAuthGuard,
       context.getHandler(),
     );
-    if (!isIgnoreGuard) return true;
+    if (isIgnoreGuard) return true;
     const req = context.switchToHttp().getRequest();
     const res = context.switchToHttp().getResponse();
     const token = req?.cookies?.accessToken;

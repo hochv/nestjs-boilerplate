@@ -1,4 +1,4 @@
-import { APP_FILTER, APP_GUARD } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { AllExceptionsFilter } from './exceptions/exception.filter';
 import { SharedModule } from './modules/shared/shared.module';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
@@ -9,6 +9,7 @@ import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { LoginController } from './modules/login/login.controller';
 import { ConfigModule } from '@nestjs/config';
 import { AuthGuard } from './guards/auth.guard';
+import { PayloadValidationPipe } from './pipes/payloadValidate.pipe';
 
 @Module({
   imports: [SharedModule, LoginModule, ConfigModule.forRoot()],
@@ -21,6 +22,10 @@ import { AuthGuard } from './guards/auth.guard';
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
+    },
+    {
+      provide: APP_PIPE,
+      useClass: PayloadValidationPipe,
     },
     AppService,
   ],
